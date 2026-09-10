@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 function ContactForm() {
   const endpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+  console.log("Endpoint Formspree:", endpoint);
 
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
