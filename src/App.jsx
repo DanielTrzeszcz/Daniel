@@ -114,7 +114,7 @@ function ContactForm() {
             name="phone"
             placeholder="Np. 500 000 000"
             required
-            pattern="[0-9+\s()-]{9,}"
+            pattern="[0-9+\s()\-]{9,}"
             disabled={status === "sending"}
           />
         </label>
