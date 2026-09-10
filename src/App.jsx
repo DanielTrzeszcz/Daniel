@@ -27,11 +27,23 @@ function ContactForm() {
       return;
     }
 
-    setStatus("sending");
-    setErrorMessage("");
-
     const form = event.target;
     const data = new FormData(form);
+
+    // --- Walidacja telefonu w JS (zamiast pattern w inpucie) ---
+    const phone = (data.get("phone") || "").toString().trim();
+    const phoneRegex = /^[0-9+\s()-]{9,}$/;
+
+    if (!phoneRegex.test(phone)) {
+      setStatus("error");
+      setErrorMessage(
+        "Podaj poprawny numer telefonu (min. 9 znaków, cyfry, spacje, myślniki)."
+      );
+      return;
+    }
+
+    setStatus("sending");
+    setErrorMessage("");
 
     data.append(
       "_subject",
@@ -114,7 +126,6 @@ function ContactForm() {
             name="phone"
             placeholder="Np. 500 000 000"
             required
-            pattern="[0-9+\s()\-]{9,}"
             disabled={status === "sending"}
           />
         </label>
@@ -147,6 +158,7 @@ function ContactForm() {
             <option>Zabezpieczenie rodziny</option>
             <option>Ubezpieczenie dla firmy</option>
             <option>Ubezpieczenie grupowe</option>
+            <option>Ubezpieczenie wakacyjne</option>
             <option>Inny temat</option>
           </select>
         </label>
